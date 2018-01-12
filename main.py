@@ -6,7 +6,7 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:blogz@localhost:8889/blogz'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
-app.secret_key = 'abcdefg'
+app.secret_key = 'JPO(HF(HW#FP)FHP$RPJFP)@U#R#)R'
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -32,7 +32,7 @@ class User(db.Model):
 @app.before_request
 def require_login():
     allowed_routes = ['login', 'signup', 'index', 'mainblog'] 
-    '''add mainblog to the above dictionary at some point'''
+    
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
 
@@ -88,18 +88,15 @@ def index():
     users = User.query.all()
     userId = request.args.get("owner_id")
     userposts = Blog.query.filter_by(owner_id=userId).all()
-    '''if request.method == 'GET' and 'userId' in request.args:
-        userposts = Blog.query.filter_by(userid=userid).all()
-        return render_template('singleUser.html', title="Blogz Users", users=users, userid=userId, userposts=userposts)
-    else:'''
+
     return render_template('index.html', users=users)
 
 @app.route("/blog", methods=['POST', 'GET'])
 def mainblog():
-    '''owner = User.query.filter_by(username=session['username']).first()'''
+
     posts = Blog.query.all()
-  
-    '''posts = Blog.query.filter_by(owner=owner).all()'''
+
+    
     if request.method == "GET" and 'id' in request.args:
         blogid = request.args.get("id")
         blogpost = Blog.query.get(blogid)
@@ -117,9 +114,8 @@ def mainblog():
             postowner = Blog.query.get(post.owner_id)
             bpostowner = User.query.get(postowner.id)
             postusername = User.query.get(bpostowner.username)
-            return render_template('blog.html', title="Blogz", posts=posts, postowner=postowner, bpostowner=bpostowner, postusername=postusername)
-
-'''('ratings.html', movies = get_watched_movies(logged_in_user().id))'''
+            return render_template('blog.html', title="Blogz", posts=posts, postowner=postowner,
+                 bpostowner=bpostowner, postusername=postusername)
 
 @app.route("/newpost", methods=['POST', 'GET'])
 def newpost():
