@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+    <head>
+
+        <title>{{title}}</title>
+        <style>
+            #log{
+                float:right;
+                margin-right: 100px;
+            }
+            .error {
+                color: red;
+            }
+            textarea {
+                margin: 10px 0;
+                width: 540px;
+                height: 120px;
+            }
+            nav ul li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 15px;
+}
+        </style>
+        <nav >
+            <ul id="log">
+                <li>
+                        <a href='login'>Log In|</a>
+                </li>
+                <li>
+                        <a  href='logout'>Log Out|</a>
+                </li>
+            </ul>    
+            <ul id="left-tab">
+                    <li>
+                            <a href='blog'>Postings</a>|
+                    </li>
+                    <li>
+                            <a href="/">Users</a>|
+                    </li>
+                    <li>
+                            <a href='newpost'>New Post</a>|
+                    </li>
+            </ul>                 
+                
+        </nav>
+        
+    </head>
+<body>    
+   
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    <ul>  
+        {% for category,message in messages %}
+            <li class="{{category}}">{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
